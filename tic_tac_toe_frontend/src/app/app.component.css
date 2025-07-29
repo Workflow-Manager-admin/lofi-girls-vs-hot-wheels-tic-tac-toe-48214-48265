@@ -1,0 +1,203 @@
+:root {
+  --primary: #6C63FF;
+  --secondary: #FFD166;
+  --accent: #EF476F;
+  --board-bg: #f5faff;
+  --cell-border: #e0e0e0;
+  --cell-hover: #ecebff;
+  --winner-highlight: #FFD166;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--board-bg);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.game-area {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(108, 99, 255, 0.07);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 350px;
+}
+
+.title {
+  color: var(--primary);
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.scoreboard {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  min-width: 70px;
+  justify-content: center;
+}
+
+.score.lofi img {
+  border-radius: 40%;
+  border: 2px solid var(--primary);
+  width: 29px;
+  height: 29px;
+  background: #ecebff;
+}
+.score.hotwheels img {
+  border-radius: 40%;
+  border: 2px solid var(--accent);
+  width: 29px;
+  height: 29px;
+  background: #fff5fa;
+}
+.score.draw {
+  color: #888;
+}
+
+.score-icon {
+  width: 29px;
+  height: 29px;
+  object-fit: cover;
+  vertical-align: middle;
+  margin-right: 0.2em;
+}
+
+.status-bar {
+  font-size: 1.18rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: var(--primary);
+  transition: color .3s;
+}
+
+.status-bar.winner {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--board-bg);
+  border-radius: 13px;
+  box-shadow: 0 1px 8px #6c63ff20;
+  padding: 12px 16px;
+  margin-bottom: 1.8rem;
+  min-width: 260px;
+}
+
+.board-row {
+  display: flex;
+}
+
+.board-cell {
+  width: 68px;
+  height: 68px;
+  border: 2px solid var(--cell-border);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 2.2rem;
+  transition: background 0.15s, box-shadow 0.12s;
+  box-sizing: border-box;
+  margin: 2px;
+  border-radius: 11px;
+  outline: none;
+  position: relative;
+}
+
+.board-cell:not(.x):not(.o):hover, .board-cell:focus-visible {
+  background: var(--cell-hover);
+  box-shadow: 0 0 0 2px var(--primary)33;
+  z-index: 2;
+}
+
+.board-cell.x,
+.board-cell.o {
+  cursor: default;
+  background: #fcfcfc;
+}
+.piece-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 5px #5551);
+}
+.board-cell.x {
+  background: #ecebff60;
+  /* Lofi Girl */
+  border: 2px solid var(--primary);
+}
+.board-cell.o {
+  background: #fff5fa60;
+  /* Hot Wheels */
+  border: 2px solid var(--accent);
+}
+.board-cell.highlight {
+  box-shadow: 0 0 16px var(--winner-highlight), 0 0 2px 2px var(--primary)55;
+  border-color: var(--winner-highlight) !important;
+  background: var(--winner-highlight)33;
+  animation: winner-flash 1.25s infinite alternate cubic-bezier(0.3,0.7,0.4,1);
+}
+@keyframes winner-flash {
+  to { box-shadow: 0 0 30px var(--winner-highlight), 0 0 7px 4px var(--accent)33; }
+}
+
+.restart-btn {
+  padding: 0.6em 2.1em;
+  font-size: 1.12rem;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(95deg, var(--primary) 50%, var(--secondary) 99%);
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0px 2px 8px #1976d218;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  margin-top: 1.2rem;
+  transition: background 0.2s, box-shadow 0.19s;
+}
+
+.restart-btn:hover, .restart-btn:focus-visible {
+  background: linear-gradient(95deg, var(--accent) 15%, var(--secondary) 99%);
+  box-shadow: 0px 4px 20px #EF476F28;
+  outline: none;
+}
+
+@media (max-width: 500px) {
+  .game-area {
+    padding: 5vw 2vw;
+    min-width: unset;
+    width: 98vw;
+  }
+  .board { min-width: unset;}
+  .board-cell, .piece-img { width: 14vw; height: 14vw; max-width: 57px; max-height: 57px;}
+  .scoreboard { font-size: 1rem;}
+}
+
+/* Avoid selection highlight on double click */
+.board-cell, .piece-img {
+  user-select: none;
+}

@@ -1,3 +1,45 @@
 <div class="container">
-  <h1>{{ title }}</h1>
+  <div class="game-area">
+    <h1 class="title">{{ title }}</h1>
+    <div class="scoreboard">
+      <span class="score lofi">
+        <img [src]="lofiGirl" class="score-icon" alt="Lofi Girl X"> {{ score.X }}
+      </span>
+      <span class="score draw">
+        <span style="color: #888;">⏸</span> {{ score.Draw }}
+      </span>
+      <span class="score hotwheels">
+        <img [src]="hotWheels" class="score-icon" alt="Hot Wheels O"> {{ score.O }}
+      </span>
+    </div>
+    <div class="status-bar" [ngClass]="{'winner': !!winner}">
+      {{ statusMessage }}
+    </div>
+    <div class="board">
+      <div
+        *ngFor="let row of board; let rowIdx = index"
+        class="board-row"
+      >
+        <div
+          *ngFor="let cell of row; let colIdx = index"
+          class="board-cell"
+          [ngClass]="{'x': cell === 'X', 'o': cell === 'O', 'highlight': isHighlightedCell(rowIdx, colIdx)}"
+          (click)="onCellClick(rowIdx, colIdx)"
+          tabindex="0"
+          [attr.aria-label]="cell ? (cell === 'X' ? 'Lofi Girl' : 'Hot Wheels') : 'Empty'"
+          [attr.data-testid]="'cell-' + rowIdx + '-' + colIdx"
+        >
+          <ng-container *ngIf="cell === 'X'">
+            <img [src]="lofiGirl" alt="Lofi Girl" class="piece-img" draggable="false">
+          </ng-container>
+          <ng-container *ngIf="cell === 'O'">
+            <img [src]="hotWheels" alt="Hot Wheels" class="piece-img" draggable="false">
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <button class="restart-btn" (click)="startNewGame()">
+      Restart Game
+    </button>
+  </div>
 </div>

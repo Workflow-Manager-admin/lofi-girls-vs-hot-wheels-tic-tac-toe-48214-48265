@@ -1,0 +1,4 @@
+{
+    "command": "npm run test",
+    "working_directory": "/home/kavia/workspace/code-generation/lofi-girls-vs-hot-wheels-tic-tac-toe-48214-48265/tic_tac_toe_frontend"
+}
